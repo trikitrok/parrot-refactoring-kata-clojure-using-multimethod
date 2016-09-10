@@ -14,9 +14,10 @@
     (max minimum-speed (- base-speed (* load-factor num-coconuts)))))
 
 (defmethod speed :norwegian-blue-parrot [{:keys [nailed voltage]}]
-  (if nailed
-    minimum-speed
-    (min 24.0 (* voltage base-speed))))
+  (let [maximum-speed 24.0]
+    (if nailed
+      minimum-speed
+      (min maximum-speed (* voltage base-speed)))))
 
 (defmethod speed :default [_]
   (throw (Exception. "Should be unreachable!")))
