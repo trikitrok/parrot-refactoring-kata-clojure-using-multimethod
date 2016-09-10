@@ -1,7 +1,5 @@
 (ns parrot-refactoring.core)
 
-(def ^:private load-factor 9.0)
-
 (def ^:private base-speed 12.0)
 
 (defmulti speed :type)
@@ -10,7 +8,8 @@
   base-speed)
 
 (defmethod speed :african-parrot [{:keys [num-coconuts]}]
-  (max 0.0 (- base-speed (* load-factor num-coconuts))))
+  (let [load-factor 9.0]
+    (max 0.0 (- base-speed (* load-factor num-coconuts)))))
 
 (defmethod speed :norwegian-blue-parrot [{:keys [nailed voltage]}]
   (if nailed
