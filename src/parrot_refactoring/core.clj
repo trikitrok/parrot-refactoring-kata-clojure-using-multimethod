@@ -12,10 +12,13 @@
 (defmethod speed* :european-parrot [_]
   base-speed)
 
+(defmethod speed* :african-parrot [{:keys [num-coconuts]}]
+  (max 0.0 (- base-speed (* load-factor num-coconuts))))
+
 (defn speed [parrot]
   (case (:type parrot)
     :european-parrot (speed* parrot)
-    :african-parrot (max 0.0 (- base-speed (* load-factor (:num-coconuts parrot))))
+    :african-parrot (speed* parrot)
     :norwegian-blue-parrot (if (:nailed parrot)
                              0.0
                              (compute-base-speed-for-voltage (:voltage parrot)))
