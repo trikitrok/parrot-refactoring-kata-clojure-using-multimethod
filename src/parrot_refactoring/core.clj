@@ -20,9 +20,8 @@
     0.0
     (compute-base-speed-for-voltage voltage)))
 
+(defmethod speed* :default [_]
+  (throw (Exception. "Should be unreachable!")))
+
 (defn speed [parrot]
-  (case (:type parrot)
-    :european-parrot (speed* parrot)
-    :african-parrot (speed* parrot)
-    :norwegian-blue-parrot (speed* parrot)
-    (throw "Should be unreachable!")))
+  (speed* parrot))
