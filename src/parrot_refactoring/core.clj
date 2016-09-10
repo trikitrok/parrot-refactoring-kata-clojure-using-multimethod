@@ -15,11 +15,14 @@
 (defmethod speed* :african-parrot [{:keys [num-coconuts]}]
   (max 0.0 (- base-speed (* load-factor num-coconuts))))
 
+(defmethod speed* :norwegian-blue-parrot [{:keys [nailed voltage]}]
+  (if nailed
+    0.0
+    (compute-base-speed-for-voltage voltage)))
+
 (defn speed [parrot]
   (case (:type parrot)
     :european-parrot (speed* parrot)
     :african-parrot (speed* parrot)
-    :norwegian-blue-parrot (if (:nailed parrot)
-                             0.0
-                             (compute-base-speed-for-voltage (:voltage parrot)))
+    :norwegian-blue-parrot (speed* parrot)
     (throw "Should be unreachable!")))
